@@ -80,6 +80,7 @@ public class FileSaver implements Function<String, ToolExecuteResult> {
 			Map<String, Object> toolInputMap = JSON.parseObject(toolInput, new TypeReference<Map<String, Object>>() {
 			});
 			String content = (String) toolInputMap.get("content");
+			System.out.println("文件内容："+content);
 			String filePath = (String) toolInputMap.get("file_path");
 			File file = new File(filePath);
 			File directory = file.getParentFile();
@@ -91,12 +92,14 @@ public class FileSaver implements Function<String, ToolExecuteResult> {
 				writer.write(content);
 			}
 			catch (IOException e) {
+				e.printStackTrace();
 				throw new RuntimeException(e);
 			}
 
 			return new ToolExecuteResult("Content successfully saved to " + filePath);
 		}
 		catch (Throwable e) {
+			e.printStackTrace();
 			return new ToolExecuteResult("Error saving file: " + e.getMessage());
 		}
 	}

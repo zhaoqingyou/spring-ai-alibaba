@@ -143,7 +143,8 @@ public class CodeUtils {
 		ExecuteCommandResult executeCommandResult = null;
 		if (lang.equals("python")) {
 			List<String> cmds = new ArrayList<>();
-			if (arm64 != null) {
+//			if (arm64 != null) {
+			if (arm64==false) {
 				cmds.add("arch");
 				cmds.add(arm64 ? "-arm64" : "-x86_64");
 			}
@@ -168,6 +169,7 @@ public class CodeUtils {
 
 	public static ExecuteCommandResult executeCommand(String... command) {
 		try {
+			log.info("要执行的命令:{}",command);
 			Process process = new ProcessBuilder(command).start();
 
 			BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
